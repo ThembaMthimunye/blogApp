@@ -100,11 +100,11 @@ const Home = () => {
                             </div>
                           </div>
                           <div className="flex justify-end">
-                            <img
+                            {/* <img
                               src={images[item._id]?.data || ""}
                               className="w-[16rem] h-[10rem] object-cover"
                               alt={item.title}
-                            />
+                            /> */}
                           </div>
                         </div>
                         <hr className="w-[60rem]" />

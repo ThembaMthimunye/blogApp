@@ -15,6 +15,7 @@ const CreateUser = () => {
     name: "",
     email: "",
     password: "",
+    gender:""
   });
 
   async function submitHandle(e) {
@@ -24,9 +25,9 @@ const CreateUser = () => {
       alert("User successfully created");
      navigate('/Home')
     } else {
-      alert("User could not be created");
+      alert("User could not be created check your credentials");
     }
-    console.log(response);
+     console.log(response);
   }
 
   return (
@@ -35,7 +36,9 @@ const CreateUser = () => {
         <h2 className="text-2xl font-bold mb-6 text-center">Create Account</h2>
         <form onSubmit={submitHandle} className="space-y-6">
           <div className="flex flex-col space-y-4">
-            <label htmlFor="name" className="font-medium">Name</label>
+            <label htmlFor="name" className="font-medium">
+              Name
+            </label>
             <Input
               type="text"
               id="name"
@@ -46,7 +49,9 @@ const CreateUser = () => {
               className="p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
 
-            <label htmlFor="email" className="font-medium">Email</label>
+            <label htmlFor="email" className="font-medium">
+              Email
+            </label>
             <Input
               type="email"
               id="email"
@@ -57,7 +62,9 @@ const CreateUser = () => {
               className="p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
 
-            <label htmlFor="password" className="font-medium">Password</label>
+            <label htmlFor="password" className="font-medium">
+              Password
+            </label>
             <Input
               type="password"
               id="password"
@@ -67,19 +74,28 @@ const CreateUser = () => {
               maxLength={15}
               className="p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
-            
-            <Button 
-              type="submit" 
-              className="bg-black text-white py-3 rounded-lg font-semibold  transition">
+            <select
+              id="gender"
+              value={user.gender}
+              onChange={(e) => setUser({ ...user, gender: e.target.value })}
+              className="w-full p-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-800 text-gray-800 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors duration-200"
+            >
+              <option value="" disabled>
+                Select your gender
+              </option>
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+              <option value="other">Other</option>
+            </select>
+            <Button
+              type="submit"
+              className="bg-black text-white py-3 rounded-lg font-semibold  transition"
+            >
               Create Account
             </Button>
           </div>
-          <div>
-            
-          </div>
-          
+          <div></div>
         </form>
-
       </div>
     </div>
   );
