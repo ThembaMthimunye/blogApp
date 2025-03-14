@@ -6,6 +6,9 @@ import users from './routes/userRoutes.js';
 import awsRoutes from './routes/awsRoutes.js';
 import multer from 'multer';
 import messageRoutes from './routes/messageRoutes.js';
+import cookieParser from "cookie-parser";
+import postRoutes from './routes/postRoutes.js';
+
 
 const app = express();
 const PORT = 8000;
@@ -17,12 +20,14 @@ const upload = multer({ storage: multer.memoryStorage() });
 
 app.use(cors());
 app.use(express.json());
+app.use(cookieParser());
 
 // Routes
 app.use(posts);
 app.use(users);
 app.use(awsRoutes);
 app.use("/api/messages", messageRoutes);
+app.use("/api/users", postRoutes);
 
 // Start server
 app.listen(PORT, async () => {

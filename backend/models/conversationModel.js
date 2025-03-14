@@ -4,15 +4,17 @@ const conversationSchema=new mongoose.Schema({
 participants:[
     {
          type:mongoose.Schema.Types.ObjectId,
-        ref:'User'
+        ref:'User',
+
     }
    
 ],
 messages:[
     {
         type:mongoose.Schema.Types.ObjectId,
-        ref:'User',
-        default:[]
+        default:[],
+        ref:'Message'
+
     }
 ]
 },{timestamps:true})

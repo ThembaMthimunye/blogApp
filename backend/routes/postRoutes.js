@@ -3,172 +3,27 @@ import getDb from "../connect.js";
 import { ObjectId } from "mongodb"; 
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
-import { allUser } from "../controllers/postController.js"; 
+
+import { updatePost ,onePost,createPost,deletePost, allPost} from "../controllers/postController.js"; 
+
 // import getPost
 
 
 let postRoutes = express.Router();
 
-///Retrive all posts
 
-// postRoutes.route("/post").get(verifyToken,  async (req, res) => {
-//   let db = database.getDb();
-//   let data = await db.collection("posts").find({}).toArray();
-//   if (data.length > 0) {
-//     res.json(data)
-//   } else {
-//     throw new Error("Data was not found")
-//   }
-// });
-
-postRoutes.get("/post",allUser)
+//Retrive all users
+postRoutes.get("/post",verifyToken,allPost)
 //Retrieve one Post
-
-
-postRoutes.route('/post/:id').get(verifyToken,  async(req,res)=>{
-    let db=getDb();
-    let data=await db.collection("posts").findOne(({_id:new ObjectId(req.params.id)}))
-    if(Object.keys(data).length>0){
-        res.json(data)
-    }else{
-        throw new Error("Data was not found")
-    }
-})
-
-
-///Create a post 
-
-postRoutes.route('/posts').post(verifyToken, async(req,res)=>{
-    let db=getDb();
-    let mongoObject={
-        title:req.body.title,
-        description:req.body.description,
-        content:req.body.content,
-        author:req.body.author,
-        dateCreated:req.body.dateCreated,
-        imageId:req.body.imageId,
-        like:0
-    }
-
-    let data =await db.collection("posts").insertOne(mongoObject)
-    res.json(data)
-})
-
-
+postRoutes.get("/post/:id",verifyToken,onePost)
+///Create a post
+postRoutes.post('/posts/create',verifyToken,createPost)
 ///Update One
-
-postRoutes.route('/post/:id').put(verifyToken, async(req,res)=>{
-    let db=getDb();
-    let mongoObject={
-        $set:{
-            title:req.body.title,
-        description:req.body.description,
-        content:req.body.content,
-        author:req.body.user._id,
-        dateCreated:req.body.dateCreated,
-        imageId:request.body.imageId
-        }
-    }
-    let data=await db.collection('posts').updateOne({_id:new ObjectId(req.params.id)},mongoObject)
-    res.json(data)
-})
-
+postRoutes.put('/post/update/:id',verifyToken,updatePost)
 //Delete One
+postRoutes.delete('/post/delete/:id',verifyToken,deletePost)
 
-postRoutes.route('/post/:id').delete(verifyToken, async(req,res)=>{
-    let db=getDb();
-    let data=await db.collection('posts').deleteOne({_id:new ObjectId(req.params.id)})
-    res.json(data)
-})
 
-// routes/posts.js
-
-// postRoutes.route("/api/posts/:id/like").post(verifyToken, async (req, res) => {
-//     const { id } = req.params;
-//     const { userId } = req.body; // Get userId from request body
-  
-//     try {
-//       const post = await post.findById(id); // Find the post by ID
-  
-//       if (!post) {
-//         return res.status(404).json({ message: "Post not found" });
-//       }
-  
-//       // Toggle like functionality
-//       const hasLiked = post.likes.includes(userId);
-//       if (hasLiked) {
-//         // If user has already liked the post, remove like
-//         post.likes = post.likes.filter((id) => id !== userId);
-//       } else {
-//         // If user hasn't liked the post, add like
-//         post.likes.push(userId);
-//       }
-  
-//       await post.save(); // Save the post with updated likes
-//       res.status(200).json({
-//         likes: post.likes.length, // Return the updated like count
-//         isLiked: !hasLiked, // Return the new state of the like (true/false)
-//       });
-//     } catch (error) {
-//       console.error("Error updating like:", error);
-//       res.status(500).json({ message: "Internal Server Error" });
-//     }
-//   });
-
-// postRoutes.route("/api/posts/:id/like").post(verifyToken, async (req, res) => {
-//   const { id } = req.params;
-//   const { userId } = req.body; // Get userId from request body
-
-//   try {
-//       let db = database.getDb();
-      
-//       // Find the post
-//       const post = await db.collection("posts").findOne({ _id: new ObjectId(id) });
-
-//       if (!post) {
-//           return res.status(404).json({ message: "Post not found" });
-//       }
-
-//       // Ensure likes array exists
-//       if (!Array.isArray(post.likes)) {
-//           post.likes = [];
-//       }
-
-//       // Toggle like functionality
-//       const hasLiked = post.likes.includes(userId);
-//       let updateQuery;
-
-//       if (hasLiked) {
-//           // Remove like
-//           updateQuery = {
-//               $pull: { likes: userId }
-//           };
-//       } else {
-//           // Add like
-//           updateQuery = {
-//               $push: { likes: userId }
-//           };
-//       }
-
-//       // Update the post in the database
-//       const result = await db.collection("posts").updateOne(
-//           { _id: new ObjectId(id) },
-//           updateQuery
-//       );
-
-//       // Get updated post to return current like count
-//       const updatedPost = await db.collection("posts").findOne({ _id: new ObjectId(id) });
-
-//       res.status(200).json({
-//           likes: updatedPost.likes.length,
-//           isLiked: !hasLiked
-//       });
-
-//   } catch (error) {
-//       console.error("Error updating like:", error);
-//       res.status(500).json({ message: "Internal Server Error", error: error.message });
-//   }
-// });
 
 postRoutes.route("/api/posts/:id/like").post(verifyToken, async (req, res) => {
   const { id } = req.params;
@@ -215,12 +70,7 @@ postRoutes.route("/api/posts/:id/like").post(verifyToken, async (req, res) => {
       });
   }
 });
-
-
 //     //    //   //      //Comments///        ///                  //// 
-
-
-
 postRoutes.route("/api/posts/:id/comment").post(verifyToken, async (req, res) => {
   const { id } = req.params;
   const { userId, comment } = req.body; // Expect userId and comment text in the body
@@ -241,13 +91,7 @@ postRoutes.route("/api/posts/:id/comment").post(verifyToken, async (req, res) =>
     // Ensure comments array exists
     const comments = Array.isArray(post.comments) ? post.comments : [];
 
-    // Optional: Check if user has already commented (if you want to restrict multiple comments)
-    // const hasCommented = comments.some(c => c.userId === userId);
-    // if (hasCommented) {
-    //   return res.status(400).json({ message: "User has already commented on this post" });
-    // }
-
-    // Create a new comment object
+    
     const newComment = {
       userId,
       text: comment,
