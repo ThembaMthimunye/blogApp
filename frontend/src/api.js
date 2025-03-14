@@ -30,8 +30,31 @@ export async function deleteuser(id) {
 }
 
 export async function createuser(user) {
-  const response = await axios.post(`${URL}/user`, user);
+  const response = await axios.post(`${URL}/api/users/register`, user);
   return response;
+}
+
+export async function login(user) {
+  console.log(user)
+
+  try {
+    // const response = await axios.post(`${URL}/api/users/register`, user);
+    const response = await axios.post(`${URL}/api/users/login`, user )
+    console.log(response)
+       
+    if (response) {
+      console.log("Login successful:", response.data);
+      return response;
+    } else {
+      console.error("Login failed:", response.data.message);
+      alert("Login failed: " + response.data.message);
+      // return response;
+    }
+  } catch (error) {
+    console.error("Login error:", error.response?.data || error.message);
+    alert("Login failed. Please try again.");
+    throw error; 
+  }
 }
 
 export async function updateuser(id, user) {
@@ -89,15 +112,7 @@ export async function updatePost(id, post) {
   return response;
 }
 
-export async function login(user) {
-  const response = await axios.post(`${URL}/user/login`, user);
-  if (response.data.success) {
-    console.log(response.data);
-    return response.data.token;
-  } else {
-    alert("login failed");
-  }
-}
+
 
 export async function createImage(file) {
   const formData = new FormData();

@@ -1,6 +1,8 @@
-import { Login,createUser } from "../controllers/authController";
+import { login,createUser } from "../controllers/authController.js";
+import express from "express"
+const router=express.Router();
 
-const router=express.router();
+router.post("/login",login)
+router.post("/register",createUser)
 
-router.post("/user/login",Login)
-router.post("/user/create-user",createUser)
+export default router

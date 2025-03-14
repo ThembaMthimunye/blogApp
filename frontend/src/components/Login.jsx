@@ -1,57 +1,65 @@
 import { React, useState } from "react";
 import { login } from "../api";
-import {useNavigate} from 'react-router-dom'
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
+
 const Login = () => {
   const [user, setUser] = useState({
     email: "",
     password: "",
   });
-  const navigate=useNavigate()
+
+  const navigate = useNavigate();
+
   async function submitHandle(e) {
     e.preventDefault();
-     let response=await login(user);
-    if(response){
-        sessionStorage.setItem('user',response)
-         axios.defaults.headers.common['authorization']=`Bearer ${response}`
-        navigate('/Home')
-        console.log(response)
-    }else{
-        alert('login failed')
-    } 
+    console.log(user)
+    try {
+      const response = await login(user); 
+      if (response) {
+        // token=response.data.token
+        sessionStorage.setItem("user", response);
+        axios.defaults.headers.common["Authorization"] = `Bearer ${response}`;
+        navigate("/Home"); // Navigate to home page on success
+      } else {
+        console.log("Login response:", response);
+        alert("Login failed. Please check your credentials.");
+      }
+    } catch (error) {
+      console.error("Login error:", error);
+      alert("An error occurred during login. Please try again.");
+    }
   }
+
   return (
-    <div >
-        <h2 className="text-2xl font-bold mb-6 text-center">Login</h2>
+    <div>
+      <h2 className="text-2xl font-bold mb-6 text-center">Login</h2>
 
-      <form action="" onSubmit={submitHandle} className="">
-       
-        <div div className='flex flex-col space-y-4 '>
-        <label htmlFor="">email</label>
-        <Input
-          type="text"
-          placeholder="email"
-          onChange={(e) => setUser({ ...user, email: e.target.value })}
-          required
-          maxLenght={15}
-          className=""
-        />
+      <form onSubmit={submitHandle} className="">
+        <div className="flex flex-col space-y-4">
+          <button className="btn btn-secondary">test</button>
+          <label htmlFor="email">Email</label>
+          <Input
+            type="email"
+            placeholder="email"
+            onChange={(e) => setUser({ ...user, email: e.target.value })}
+            required
+            maxLength={50}
+          />
 
-        <label htmlFor="">password</label>
-        <Input
-         
-          onChange={(e) => setUser({ ...user, password: e.target.value })}
-          placeholder="password"
-          required
-          maxLenght={15}
-          type='password'
-        />
+          <label htmlFor="password">Password</label>
+          <Input
+            type="password"
+            placeholder="password"
+            onChange={(e) => setUser({ ...user, password: e.target.value })}
+            required
+            maxLength={50}
+          />
 
-        <Button onClick={navigate} type='submit'>Login</Button>
+          <Button type="submit">Login</Button>
         </div>
-       
       </form>
     </div>
   );

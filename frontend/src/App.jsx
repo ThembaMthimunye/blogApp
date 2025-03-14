@@ -10,6 +10,7 @@ import Profile from "./Pages/Profile.jsx";
 import ReadBlog from "./Pages/ReadBlog.jsx";
 import Layout from "./components/Layout.jsx";
 import UpdatePage from "./Pages/UpdatePage.jsx";
+import ChatSide from "./Pages/ChatSide.jsx";
 
 function App() {
   useEffect(() => {
@@ -34,6 +35,7 @@ function App() {
           <Route path="/update/:id" element={<UpdatePage />} />
           <Route path="/Home" element={<Home />} />
           <Route path="/ReadBlog/:id" element={<ReadBlog />} />
+          <Route path="/chatside" element={<ChatSide />} />
         </Route>
       </Routes>
     </Router>
