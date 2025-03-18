@@ -7,6 +7,7 @@ import awsRoutes from './routes/awsRoutes.js';
 import messageRoutes from './routes/messageRoutes.js';
 import multer from 'multer';
 import cookieParser from "cookie-parser";
+import userRoutes from './routes/userRoutes.js';
 
 const app = express();
 const PORT = 8000;
@@ -22,6 +23,7 @@ app.use("/api/posts", postRoutes);
 app.use("/api/users", authRoutes);
 app.use("/api/aws", awsRoutes);
 app.use("/api/messages", messageRoutes);
+app.use("/api/user",userRoutes)
 
 
 app.listen(PORT, async () => {

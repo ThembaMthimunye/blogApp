@@ -3,33 +3,74 @@ import bcrypt from "bcryptjs"
 import generateTokenAndSetCookie from "../utils/generateToken.js"
 
 
-export const login = async (req, res) => {
-  const { email, password } = req.body;
+// export const Login = async (req, res) => {
+//   const { email, password } = req.body;
 
  
+//   if (!email || !password) {
+//     return res.status(400).json({ success: false, message: "Email and password are required" });
+//   }
+
+//   try {
+//     const user = await User.findOne({ email });
+//     if (user) {
+//       const confirmation = await bcrypt.compare(password, user.password || "");
+//       if (confirmation) {
+//         const token = generateTokenAndSetCookie(user._id, res);
+//         res.json({ success: true, token });
+//       } else {
+//         res.status(401).json({ success: false, message: "Invalid credentials" });
+//       }
+//       return user
+
+//     } else {
+//       res.status(404).json({ success: false, message: "User not found" });
+//     }
+//   } catch (error) {
+//     console.error("Error during login:", error);
+//     res.status(500).json({ success: false, message: "Internal server error" });
+//   }
+  
+// };
+
+
+
+
+export const Login = async (req, res) => { // Lowercase for convention
+  const { email, password } = req.body;
+
   if (!email || !password) {
     return res.status(400).json({ success: false, message: "Email and password are required" });
   }
 
   try {
     const user = await User.findOne({ email });
-    if (user) {
-      const confirmation = await bcrypt.compare(password, user.password || "");
-      if (confirmation) {
-        const token = generateTokenAndSetCookie(user._id, res);
-        res.json({ success: true, token });
-      } else {
-        res.status(401).json({ success: false, message: "Invalid credentials" });
-      }
+    if (!user) {
+      return res.status(404).json({ success: false, message: "User not found" });
+    }
+
+    const confirmation = await bcrypt.compare(password, user.password);
+    if (confirmation) {
+      const token = generateTokenAndSetCookie(user._id, res);
+      res.status(200).json({
+        success: true,
+        data: {
+          id: user._id,
+          name: user.name,
+          email: user.email,
+          gender: user.gender,
+          profilePic: user.profilePic,
+        },
+        token,
+      });
     } else {
-      res.status(404).json({ success: false, message: "User not found" });
+      res.status(401).json({ success: false, message: "Invalid credentials" });
     }
   } catch (error) {
     console.error("Error during login:", error);
     res.status(500).json({ success: false, message: "Internal server error" });
   }
 };
-
 
 export const createUser=async (req, res) => {
     try {

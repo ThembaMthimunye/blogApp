@@ -16,20 +16,40 @@ const Login = () => {
   async function submitHandle(e) {
     e.preventDefault();
     console.log(user)
+    // try {
+    //   const response = await login(user); 
+    //   if (response) {
+    //      let token=response.data.token
+    //      console.log(response)
+    //     sessionStorage.setItem("user", token);
+    //     axios.defaults.headers.common["Authorization"] = `Bearer ${response}`;
+    //     navigate("/Home"); // Navigate to home page on success
+    //   } else {
+    //     console.log("Login response:", response);
+    //     alert("Login failed. Please check your credentials.");
+    //   }
+    // } catch (error) {
+    //   console.error("Login error:", error);
+    //   alert("An error occurred during login. Please try again.");
+    // }
+
     try {
-      const response = await login(user); 
-      if (response) {
-        // token=response.data.token
-        sessionStorage.setItem("user", response);
-        axios.defaults.headers.common["Authorization"] = `Bearer ${response}`;
-        navigate("/Home"); // Navigate to home page on success
+      const response = await login(user);
+      if (response.data.success) {
+        console.log("Login successful:", response.data);
+        const { token, data } = response.data; // Destructure correctly
+        localStorage.setItem("user", JSON.stringify(data)); // Store user data
+        localStorage.setItem("token", token); // Store token
+        navigate("/Home");
       } else {
-        console.log("Login response:", response);
-        alert("Login failed. Please check your credentials.");
+        throw new Error(response.data.message || "Login failed");
       }
     } catch (error) {
-      console.error("Login error:", error);
-      alert("An error occurred during login. Please try again.");
+      console.error("Login error:", error.message);
+      setError(error.message);
+      alert(`Login failed: ${error.message}`);
+    } finally {
+      setLoading(false);
     }
   }
 

@@ -12,7 +12,7 @@ import { updatePost ,onePost,createPost,deletePost, allPost} from "../controller
 let postRoutes = express.Router();
 
 
-//Retrive all users
+//Retrive all post
 postRoutes.get("/post",verifyToken,allPost)
 //Retrieve one Post
 postRoutes.get("/post/:id",verifyToken,onePost)
@@ -123,7 +123,6 @@ postRoutes.route("/api/posts/:id/comment").post(verifyToken, async (req, res) =>
     });
   }
 });
-
 
 
 

@@ -27,7 +27,7 @@ userRoutes.route("/user").get(async (req, res) => {
 });
 
 // for sidebar
-userRoutes.get("/",protectRoute,getAllUsers)
+userRoutes.get("/:token",protectRoute,getAllUsers)
 
 //Retrieve one user
 

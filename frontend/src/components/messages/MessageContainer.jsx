@@ -7,7 +7,7 @@ const MessageContainer = () => {
     const [chatSelected, setChatSelected] = useState(true);
   
     return (
-      <div className="md:min-w-[450px] flex flex-col bg-gray-500 h-full">
+      <div className="md:min-w-[450px] flex flex-col bg-gray-200 h-full">
         {chatSelected ? (
           <div className="flex flex-col h-full">
             <div className="bg-slate-500 px-4 py-2 mb-2">
