@@ -27,15 +27,15 @@ function App() {
         <Route path="/" element={<Landing />} />
 
         {/* Protected routes with Layout */}
-        <Route element={<Layout />}>
-          <Route path="/Contact" element={<Contact />} />
-          <Route path="/About" element={<About />} />
-          <Route path="/CreateBlog" element={<CreateBlog />} />
-          <Route path="/Profile" element={<Profile />} />
-          <Route path="/update/:id" element={<UpdatePage />} />
-          <Route path="/Home" element={<Home />} />
-          <Route path="/ReadBlog/:id" element={<ReadBlog />} />
-          <Route path="/chatside" element={<ChatSide />} />
+        <Route path="#" element={<Layout />}>
+          <Route path="contact" element={<Contact />} />
+          <Route path="about" element={<About />} />
+          <Route path="create-blog" element={<CreateBlog />} />
+          <Route path="profile" element={<Profile />} />
+          <Route path="update/:id" element={<UpdatePage />} />
+          <Route path="Home" element={<Home />} />
+          <Route path="read-blog/:id" element={<ReadBlog />} />
+          <Route path="chat-side" element={<ChatSide />} />
         </Route>
       </Routes>
     </Router>

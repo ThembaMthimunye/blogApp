@@ -11,19 +11,19 @@ const Home = () => {
   useEffect(() => {
     async function getAllData() {
       try {
-        const [postsData, usersData] = await Promise.all([getPosts(), getusers()]);
-        if (Array.isArray(postsData)) setPost(postsData);
-        else setPost([]);
-        if (Array.isArray(usersData)) setUsers(usersData);
-        else setUsers([]);
+        // const [postsData, usersData] = await Promise.all([getPosts(), getusers()]);
+        // if (Array.isArray(postsData)) setPost(postsData);
+        // else setPost([]);
+        // if (Array.isArray(usersData)) setUsers(usersData);
+        // else setUsers([]);
 
-        const imagePromises = postsData.map((item) => getImage(item.imageId));
-        const imageResults = await Promise.all(imagePromises);
-        const imageMap = {};
-        postsData.forEach((item, index) => {
-          imageMap[item._id] = imageResults[index];
-        });
-        setImages(imageMap);
+        // const imagePromises = postsData.map((item) => getImage(item.imageId));
+        // const imageResults = await Promise.all(imagePromises);
+        // const imageMap = {};
+        // postsData.forEach((item, index) => {
+        //   imageMap[item._id] = imageResults[index];
+        // });
+        // setImages(imageMap);
       } catch (error) {
         console.error("Error fetching data:", error);
         setPost([]);

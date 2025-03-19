@@ -1,9 +1,10 @@
 import Conversation from "../../components/sidebar/Conversation ";
-import useGetConversations from "../../hooks/useGetConversations.js"; // Adjusted path
+import useGetConversations from "../../hooks/useGetConversations.js"; 
+import { getRandomEmoji } from "@/utils/emojis";
 
 const Conversations = () => {
   const { loading, conversations } = useGetConversations();
-  console.log("Conversations:", conversations);
+   console.log("Conversations:", conversations);
 
   return (
     <div className="py-2 flex flex-col overflow-auto">
@@ -12,10 +13,12 @@ const Conversations = () => {
       ) : conversations.length > 0 ? (
         conversations.map((conversation) => (
           <Conversation
-            key={conversation.id}
+            key={conversation._id}
             id={conversation.id}
             name={conversation.name}
-            // Add other props as needed
+            conversation={conversation}
+            // lastIdx={idx===conversations.length-1}
+            emoji={getRandomEmoji()}
           />
         ))
       ) : (

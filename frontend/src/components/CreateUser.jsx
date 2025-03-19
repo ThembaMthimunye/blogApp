@@ -32,7 +32,7 @@ const CreateUser = () => {
 
   return (
     <div className=" flex items-center justify-center  p-4">
-      <div className="bg-white  rounded-2xl p-6 w-full max-w-md w-[100rem]">
+      <div className="bg-white  rounded-2xl p-6 w-full max-w-md ">
         <h2 className="text-2xl font-bold mb-6 text-center">Create Account</h2>
         <form onSubmit={submitHandle} className="space-y-6">
           <div className="flex flex-col space-y-4">
