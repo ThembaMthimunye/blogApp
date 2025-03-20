@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import axios from "axios";
-import { HashRouter as Router, Routes, Route } from "react-router-dom";
+import { HashRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import Contact from "./Pages/Contact.jsx";
 import About from "./Pages/About.jsx";
 import CreateBlog from "./Pages/CreateBlog.jsx";
@@ -23,11 +23,8 @@ function App() {
   return (
     <Router>
       <Routes>
-        {/* Public route */}
-        <Route path="/" element={<Landing />} />
-
-        {/* Protected routes with Layout */}
-        <Route path="#" element={<Layout />}>
+         <Route path="/" element={<Landing />} />
+        {/* <Route path="" element={<Layout />}> */}
           <Route path="contact" element={<Contact />} />
           <Route path="about" element={<About />} />
           <Route path="create-blog" element={<CreateBlog />} />
@@ -36,10 +33,10 @@ function App() {
           <Route path="Home" element={<Home />} />
           <Route path="read-blog/:id" element={<ReadBlog />} />
           <Route path="chat-side" element={<ChatSide />} />
-        </Route>
-      </Routes>
+         {/* </Route> */}
+      </Routes> 
     </Router>
   );
 }
 
-export default App;
+export default App

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { BsSend } from "react-icons/bs";
-import useSendMessage from "../../hooks/useSendMessages";
+import useSendMessage from "../../hooks/useSendMessages.js";
 
 const MessageInput = () => {
 	const [message, setMessage] = useState("");
@@ -10,6 +10,12 @@ const MessageInput = () => {
 		e.preventDefault();
 		if (!message) return;
 		await sendMessage(message);
+		if(await sendMessage(message))
+		{
+			console.log("yes")
+		}else{
+			console.log("no")
+		}
 		setMessage("");
 	};
 
