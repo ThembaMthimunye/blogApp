@@ -24,7 +24,7 @@ function App() {
     <Router>
       <Routes>
          <Route path="/" element={<Landing />} />
-        {/* <Route path="" element={<Layout />}> */}
+        <Route path="" element={<Layout />}>
           <Route path="contact" element={<Contact />} />
           <Route path="about" element={<About />} />
           <Route path="create-blog" element={<CreateBlog />} />
@@ -33,7 +33,7 @@ function App() {
           <Route path="Home" element={<Home />} />
           <Route path="read-blog/:id" element={<ReadBlog />} />
           <Route path="chat-side" element={<ChatSide />} />
-         {/* </Route> */}
+         </Route>
       </Routes> 
     </Router>
   );

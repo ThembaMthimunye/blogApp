@@ -14,7 +14,11 @@ const PORT = 8000;
 
 
 const upload = multer({ storage: multer.memoryStorage() });
-app.use(cors());
+app.use(
+    cors({
+        origin: "http://localhost:5173",
+        credentials: true,
+}));
 app.use(express.json());
 app.use(cookieParser());
 

@@ -10,13 +10,13 @@ const MessageInput = () => {
 		e.preventDefault();
 		if (!message) return;
 		await sendMessage(message);
-		if(await sendMessage(message))
-		{
-			console.log("yes")
-		}else{
-			console.log("no")
-		}
-		setMessage("");
+		// if(await sendMessage(message))
+		// {
+		// 	console.log("yes")
+		// }else{
+		// 	console.log("no")
+		// }
+		 setMessage("");
 	};
 
 	return (

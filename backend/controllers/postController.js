@@ -6,7 +6,6 @@ import BlogPost from "../models/postsModel.js";
 
 export const allPost=async (req,res)=>
 {
-
   let data = await BlogPost.find();
   if (data.length > 0) {
     res.json(data)

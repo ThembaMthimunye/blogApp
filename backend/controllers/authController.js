@@ -52,6 +52,7 @@ export const Login = async (req, res) => { // Lowercase for convention
     const confirmation = await bcrypt.compare(password, user.password);
     if (confirmation) {
       const token = generateTokenAndSetCookie(user._id, res);
+      console.log(token,"front end")
       res.status(200).json({
         success: true,
         data: {

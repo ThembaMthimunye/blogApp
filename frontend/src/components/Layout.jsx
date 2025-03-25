@@ -6,7 +6,7 @@ import { useEffect } from "react";
 
 
 const Layout = () => {
-  let user=sessionStorage.getItem('user')
+  let user=localStorage.getItem('user')
   const navigate=useNavigate()
 
   useEffect(()=>{

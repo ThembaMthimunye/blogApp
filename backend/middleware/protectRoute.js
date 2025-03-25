@@ -11,37 +11,34 @@ mongoose.connect("mongodb+srv://218634567:KEdDYtAZoIGAiIYN@cluster0.46whv.mongod
 .then(() => console.log("MongoDB connected"))
 .catch((err) => console.error("MongoDB connection error:", err));
 
- const protectRoute = async (req, res, next) => {
-
+const protectRoute = async (req, res, next) => {
 	try {
-		const token = req.params.token;
-		 
-		console.log(token)
-
-		if (!token) {
-			return res.status(401).json({ error: "Unauthorized - No Token Provided" });
-		}
-
-		const decoded = jwt.verify(token, "1234");
-
-		if (!decoded || !decoded.userId) {
-			return res.status(401).json({ error: "Unauthorized - Invalid Token" });
-		}
-		// console.log("MongoDB connection state:", mongoose.connection.readyState);
-		const userId = decoded.userId;
-		// console.log(userId);
-		const cleanUserId = userId.trim();
-		const user = await User.findById(cleanUserId);
-		if (!user) {
-			return res.status(404).json({ error: "User not found" });
-		}
-		req.user=user;
-		// console.log(user)
-		next();
+	  let token = req.cookies.jwt || req.headers.authorization?.split(" ")[1];
+  
+	  console.log("Token received:", token);
+  
+	  if (!token) {
+		return res.status(401).json({ error: "Unauthorized - No Token Provided" });
+	  }
+  
+	  const decoded = jwt.verify(token, "1234"); // Make sure the secret matches
+  
+	  if (!decoded || !decoded.userId) {
+		return res.status(401).json({ error: "Unauthorized - Invalid Token" });
+	  }
+  
+	  const user = await User.findById(decoded.userId.trim());
+	  if (!user) {
+		return res.status(404).json({ error: "User not found" });
+	  }
+  
+	  req.user = user;
+	  next();
 	} catch (error) {
-		console.log("Error in protectRoute middleware: ", error.message);
-		res.status(500).json({ error: "Internal server error" });
+	  console.error("Error in protectRoute middleware:", error.message);
+	  res.status(500).json({ error: "Internal server error" });
 	}
-};
+  };
+  
 
 export default protectRoute;

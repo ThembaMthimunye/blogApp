@@ -3,11 +3,12 @@ import Message from "../models/messageModel.js";
 import User from "../models/userModel.js";
 
 export const sendMessage=async(req,res)=>{
-    //  console.log("message sent",req.params.id)
+  console.log("message sent",req.params.id)
     try {
         const {message}=req.body
         const {id:receiverId}=req.params;
-        const senderId = req.user.id; 
+        const senderId = req.user._id; 
+        console.log("testing")
 
         
 
