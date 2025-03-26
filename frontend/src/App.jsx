@@ -11,32 +11,46 @@ import ReadBlog from "./Pages/ReadBlog.jsx";
 import Layout from "./components/Layout.jsx";
 import UpdatePage from "./Pages/UpdatePage.jsx";
 import ChatSide from "./Pages/ChatSide.jsx";
-
+import { useAuthContext } from "./context/authContext.jsx";
+import Sidebar from "./components/sidebar/Sidebar.jsx";
 function App() {
-  useEffect(() => {
-    let token = sessionStorage.getItem("user");
-    if (token) {
-      axios.defaults.headers.common["authorization"] = `Bearer ${token}`;
-    }
-  }, []);
+  // const { authUser } = useAuthContext();
+
+  // useEffect(() => {
+  //   if (authUser) {
+  //     // Set the authorization header if authUser is present
+  //     axios.defaults.headers.common["authorization"] = `Bearer ${authUser.token}`;
+  //   }
+  // }, [authUser]);
+  // useEffect(() => {
+  //   let token = localStorage.getItem("token");
+  //   // sessionStorage.setItem("token",token)
+  //   if (token) {
+  //     axios.defaults.headers.common["authorization"] = `Bearer ${token}`;
+  //   }
+  // }, []);
+
+
 
   return (
     <Router>
       <Routes>
-         <Route path="/" element={<Landing />} />
+        <Route path="/" element={<Landing />} />
         <Route path="" element={<Layout />}>
+          <Route
+            path="Home"  element={<Home />}
+          />
           <Route path="contact" element={<Contact />} />
           <Route path="about" element={<About />} />
           <Route path="create-blog" element={<CreateBlog />} />
           <Route path="profile" element={<Profile />} />
           <Route path="update/:id" element={<UpdatePage />} />
-          <Route path="Home" element={<Home />} />
           <Route path="read-blog/:id" element={<ReadBlog />} />
-          <Route path="chat-side" element={<ChatSide />} />
-         </Route>
-      </Routes> 
+          <Route path="chat-side" element={ <ChatSide />} />
+        </Route>
+      </Routes>
     </Router>
   );
 }
 
-export default App
+export default App;

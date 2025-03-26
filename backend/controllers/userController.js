@@ -6,8 +6,8 @@ export const getAllUsers=async(req,res)=>{
     try {
         const loggedInUser=req.user._id
         console.log(loggedInUser)
-        // const filteredUsers=await User.find({_id:{$ne:loggedInUser}}).select("-password")
-        const filteredUsers=await User.find().select("-password")
+         const filteredUsers=await User.find({_id:{$ne:loggedInUser}}).select("-password")
+        // const filteredUsers=await User.find().select("-password")
         console.log(filteredUsers.length)
 
         res.status(200).json(filteredUsers)

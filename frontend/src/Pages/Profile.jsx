@@ -32,7 +32,7 @@ const YourComponent = () => {
   
   useEffect(() => {
     async function loadData() {
-      const token = sessionStorage.getItem("user");
+      const token = localStorage.getItem("token");
 
       if (!token) {
         console.error("No token found in sessionStorage");
@@ -41,9 +41,9 @@ const YourComponent = () => {
 
       try {
         const decodedUser = jwtDecode(token);
-        console.log("Decoded User:", decodedUser);
+        console.log("Decoded User:", decodedUser.userId);
 
-        if (!decodedUser.user || !decodedUser.user._id) {
+        if ( !decodedUser.userId) {
           console.error("User ID not found in decoded token");
           return;
         }
@@ -51,9 +51,9 @@ const YourComponent = () => {
         const allPosts = await getPosts();
         console.log("All Posts:", allPosts);
 
-        const userId = decodedUser.user._id;
+        const userId = decodedUser.userId;
         const filteredPosts = allPosts.filter((post) => post.author === userId);
-
+        console.log(filteredPosts)
         setUser(decodedUser.user);
         setPosts(filteredPosts);
 

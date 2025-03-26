@@ -20,6 +20,8 @@ import { CiSearch } from "react-icons/ci";
 import { SiDailydotdev } from "react-icons/si";
 import { TfiWrite } from "react-icons/tfi";
 import { MdContactSupport } from "react-icons/md";
+import { FaFacebookMessenger } from "react-icons/fa";
+
 const Navbar = () => {
   const navigate = useNavigate();
   function logout() {
@@ -51,11 +53,19 @@ const Navbar = () => {
           <Link to={"/Contact"}>
             <MdContactSupport className="size-8" />
           </Link>
+
           <Link
             to={'/Profile'}
             className="bg-gradient-to-r from-red-500 to-orange-500 rounded-full px-3.5 py-2"
           >
             T
+          </Link>
+
+          <Link
+            to={'/chat-side'}
+            className=" rounded-full px-3.5 py-2"
+          >
+            <FaFacebookMessenger className="size-6" />
           </Link>
         </div>
       </div>

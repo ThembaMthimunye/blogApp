@@ -1,29 +1,27 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Navbar from "./Navbar";
 import { Outlet } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
-
+// import { useAuthContext } from "../context/authContext";
 
 const Layout = () => {
-  let user=localStorage.getItem('user')
-  const navigate=useNavigate()
-
-  useEffect(()=>{
-    if(!user){
-      navigate('/')
+  const navigate = useNavigate();
+  // const { authUser } = useAuthContext();
+  const user=localStorage.getItem("user")
+  useEffect(() => {
+    if (user) {
+      // navigate("/Home");
     }
-  },
-  [user])
+  }, [user]);
+
+
 
   return (
     <div>
       <Navbar />
-
       <main className="flex justify-center w-screen mt-30">
-      <Outlet/>
+        <Outlet />
       </main>
-      
     </div>
   );
 };

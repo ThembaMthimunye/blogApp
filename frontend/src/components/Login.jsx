@@ -34,6 +34,7 @@ const Login = () => {
         // Store user data securely (avoid sensitive info)
         localStorage.setItem("user", JSON.stringify(data));
         localStorage.setItem("token", token);
+        // sessionStorage.setItem("token", token);
 
         // Set default authorization header
         axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
