@@ -21,6 +21,7 @@ import { SiDailydotdev } from "react-icons/si";
 import { TfiWrite } from "react-icons/tfi";
 import { MdContactSupport } from "react-icons/md";
 import { FaFacebookMessenger } from "react-icons/fa";
+import { CgProfile } from "react-icons/cg";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -56,9 +57,9 @@ const Navbar = () => {
 
           <Link
             to={'/Profile'}
-            className="bg-gradient-to-r from-red-500 to-orange-500 rounded-full px-3.5 py-2"
+            className=" rounded-full px-3.5 py-2"
           >
-            T
+            <CgProfile className="size-6"  />
           </Link>
 
           <Link
