@@ -46,8 +46,9 @@ function App() {
           <Route path="profile" element={<Profile />} />
           <Route path="update/:id" element={<UpdatePage />} />
           <Route path="read-blog/:id" element={<ReadBlog />} />
-          <Route path="chat-side" element={ <ChatSide />} />
+          
         </Route>
+        <Route path="chat-side" element={ <ChatSide />} />
       </Routes>
     </Router>
   );

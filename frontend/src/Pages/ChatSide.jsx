@@ -3,7 +3,7 @@ import Sidebar from '@/components/sidebar/Sidebar';
 import MessageContainer from '@/components/messages/MessageContainer';
 const ChatSide = () => {
     return (
-		<div className='flex sm:h-[450px] md:h-[550px] rounded-lg overflow-hidden mt-20 bg-clip-padding backdrop-filter backdrop-blur-lg '>
+		<div className='flex  h-screen w-screen '>
 			<Sidebar /> 
 			<MessageContainer />
 		</div>

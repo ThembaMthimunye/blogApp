@@ -1,18 +1,18 @@
 import { BiLogOut } from "react-icons/bi";
-// import useLogout from "../../hooks/useLogout";
+import { useNavigate } from "react-router-dom";
 
 const LogoutButton = () => {
-	// const { loading, logout } = useLogout();
+  const navigate = useNavigate();
 
-	return (
-		<div className='mt-auto'>
-			{/* {!loading ? (
-				<BiLogOut className='w-6 h-6 text-white cursor-pointer'  />
-			) : (
-				<span className='loading loading-spinner'></span>
-			)} */}
-            <BiLogOut className='w-6 h-6 text-black cursor-pointer'  />
-		</div>
-	);
+  const handleLogout = () => {
+    navigate('/Home'); // Navigate to home when clicked
+  };
+
+  return (
+    <div className='mt-auto'>
+      <BiLogOut className='w-6 h-6 text-black cursor-pointer' onClick={handleLogout} />
+    </div>
+  );
 };
+
 export default LogoutButton;

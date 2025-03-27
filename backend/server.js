@@ -8,8 +8,9 @@ import messageRoutes from './routes/messageRoutes.js';
 import multer from 'multer';
 import cookieParser from "cookie-parser";
 import userRoutes from './routes/userRoutes.js';
+import {app,server} from "./socket/socket.js"
 
-const app = express();
+// const app = express();
 const PORT = 8000;
 
 
@@ -30,7 +31,7 @@ app.use("/api/messages", messageRoutes);
 app.use("/api/user",userRoutes)
 
 
-app.listen(PORT, async () => {
+server.listen(PORT, async () => {
     try {
         await connectToServer();
         console.log(`Server is running on Port ${PORT}`);
