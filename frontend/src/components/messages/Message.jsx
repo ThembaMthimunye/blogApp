@@ -12,6 +12,7 @@ const Message = React.forwardRef(({ message }, ref) => {
     ? user.profilePic || "/default-avatar.png"
     : selectedConversation?.profilePic || "/default-avatar.png";
   const bubbleBgColor = fromMe ? "bg-blue-500" : "bg-gray-400";
+  const shake = message.shouldShake ? "shake" : "";
 
   return (
     <div ref={ref} className={`chat ${chatClassName}`}>
@@ -24,7 +25,7 @@ const Message = React.forwardRef(({ message }, ref) => {
           />
         </div>
       </div>
-      <div className={`chat-bubble text-black ${bubbleBgColor} pb-2`}>
+      <div className={`chat-bubble text-black ${shake} ${bubbleBgColor} pb-2`}>
         {message.message || "No message content"}
       </div>
       <div className="chat-footer opacity-50 text-xs flex gap-1 items-center">

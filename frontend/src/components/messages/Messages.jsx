@@ -1,3 +1,4 @@
+// Messages.jsx
 import useGetMessages from "@/hooks/useGetMessages";
 import Message from "./Message";
 import MessageSkeleton from "@/Skeletons/MessageSkeleton";
@@ -6,7 +7,7 @@ import { useEffect, useRef } from "react";
 
 const Messages = () => {
   const { messages, loading } = useGetMessages();
-  console.log("messages", messages);
+  console.log("Rendered messages:", messages);
   useListenMessage();
   const lastMessageRef = useRef();
 
@@ -22,7 +23,7 @@ const Messages = () => {
         <Message
           key={message._id}
           message={message}
-          ref={idx === messages.length - 1 ? lastMessageRef : null} // Attach ref to last message
+          ref={idx === messages.length - 1 ? lastMessageRef : null}
         />
       ))}
       {loading && [...Array(3)].map((_, idx) => <MessageSkeleton key={idx} />)}
