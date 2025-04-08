@@ -114,3 +114,27 @@
 		transform: translate3d(4px, 0, 0);
 	}
 }
+
+.avatar {
+  position: relative;
+}
+.online::after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background-color: green;
+  border-radius: 50%;
+  bottom: 0;
+  right: 0;
+}
+.offline::after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background-color: gray;
+  border-radius: 50%;
+  bottom: 0;
+  right: 0;
+}

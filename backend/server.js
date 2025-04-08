@@ -27,7 +27,7 @@ app.use(cookieParser());
 app.use("/api/posts", postRoutes);
 app.use("/api/users", authRoutes);
 app.use("/api/aws", awsRoutes);
-app.use("/api/messages", messageRoutes);
+app.use("/api/messages", messageRoutes);0
 app.use("/api/user",userRoutes)
 
 

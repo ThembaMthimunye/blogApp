@@ -6,21 +6,20 @@ const Conversation = ({ conversation, lastIdx, emoji }) => {
   const { selectedConversation, setSelectedConversation } = useConversation();
   const isSelected = selectedConversation?._id === conversation._id;
 
-  const {onlineUsers}=useSocketContext();
-  const isOnline=onlineUsers.includes(conversation.id)
-
+  const { onlineUsers } = useSocketContext();
+  const isOnline = onlineUsers.includes(conversation._id); // Match with backend ID
 
   return (
     <>
       <div
         className={`flex gap-2 items-center hover:bg-sky-500 rounded p-2 py-1 cursor-pointer ${
-          isSelected ? "border border-green-600" : ""
+          isSelected ? "bg-blue-400" : ""
         }`}
         onClick={() => setSelectedConversation(conversation)}
       >
-        <div className={`avatar ${isOnline?"online":""}`}>
+        <div className={`avatar relative ${isOnline ? "online" : "offline"}`}>
           <div className="w-12 rounded-full">
-            <img className={`${isOnline?"online":""}`}
+            <img
               src={
                 conversation.profilePic ||
                 "https://cdn0.iconfinder.com/data/icons/communication-line-10/24/account_profile_user_contact_person_avatar_placeholder-512.png"
